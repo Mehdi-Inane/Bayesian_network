@@ -1,5 +1,6 @@
 import networkx as nx
 import random
+import matplotlib.pyplot as plt
 
 class BayesianNetwork:
     
@@ -34,12 +35,14 @@ class BayesianNetwork:
 
     def copy(self):
         return BayesianNetwork(self.variables,self.edges.copy())
+
     
     def show_network(self):
         nx_graph = nx.DiGraph()
         nx_graph.add_nodes_from(self.variables)
         nx_graph.add_edges_from(self.edges)
-        nx.draw(nx_graph,with_labels = True)
+        nx.draw(nx_graph,with_labels = True) #marche pas s'affiche pas 
+        plt.draw()
         
     
     def __eq__(self,graph):

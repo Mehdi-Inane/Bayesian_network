@@ -6,7 +6,7 @@ import numpy as np
 
 
 
-class DAG(nx.Digraph):
+class DAG(nx.DiGraph):
     def __init__(self,data):
         super(DAG,self).__init__(data)
         #Checking for cycles 
