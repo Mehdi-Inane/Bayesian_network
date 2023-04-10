@@ -15,6 +15,7 @@ class TPC:
             print(node_dict) #age : [1,2,3]
             parents_dict = {}
             for parent in network.parents[node]:
+                print(parent)
                 parents_dict[parent] = variable_values[parent]
             print("parents dict : ")
             print(parents_dict) #dico du noms des parents avec valeur qu'ils peuvent prendre
@@ -46,7 +47,3 @@ class TPC:
                     proba = dict[last_key]/sum
                 dico_proba[last_key]=proba
             self.table[node]= dico_proba
-           
-          
-
-
