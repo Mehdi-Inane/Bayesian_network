@@ -1,4 +1,3 @@
-from score_functions import *
 class Proba:
 
     def __init__(self,variable, donnee, tpc, data, network):
@@ -16,37 +15,31 @@ class Proba:
             for p in self.parent:
                 x += [self.donnee[p]] # pour recup le tuple de valeur de parent de var
             tupple = tuple([i]+x) #pour avoir la bonne forme (1,2,1) de variable et ses parents
-            print(tupple)
             self.prob_parent[i] = self.tpc.table[variable][tupple] #dico ave clé tuple et valeur proba
-        print(self.prob_parent)
 
         #trouver les children a verfier que ca trouves les bons trucs
         self.children = []
         for key in self.network.parents.keys():
-            for j in network.parents[key]:
-                if j == variable:
-                    self.children.append(key)
-        print(self.children)
-
+            if variable in self.network.parents[key]:
+                self.children.append(key)
 
         for i in variable_values[variable]:
             for enfant in self.children :
                 x= []
-                print(enfant)
                 for p in self.network.parents[enfant]:
                     if p not in self.donnee.keys():
                         x+= [i]
                     else :
                         x += [self.donnee[p]] # pour recup le tuple de valeur de parent de enfant
                 tupple = tuple([self.donnee[enfant]]+x) #pour avoir la bonne forme (1,2,1) de enfant et ses parents
-                print(tupple)
                 self.prob_parent[i] *= self.tpc.table[enfant][tupple] #dico ave clé tuple et valeur proba
-        print(self.prob_parent)
-        sum=0
+        total=0
         index = 0
+        normaliser = 0
         for i in self.prob_parent.keys():
-                if self.prob_parent[i]>sum:
-                    sum = self.prob_parent[i]
+                normaliser += self.prob_parent[i]
+                if self.prob_parent[i]>total:
+                    total = self.prob_parent[i]
                     index = i
-        self.max = i #la proba max
-        self.value_max = sum #le survived qui donne la bonne proba
+        self.max = index #la proba max
+        self.value_max = total/normaliser #le survived qui donne la bonne proba et on normalise en meme temps
